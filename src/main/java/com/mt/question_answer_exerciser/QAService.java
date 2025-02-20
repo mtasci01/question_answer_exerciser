@@ -7,6 +7,7 @@ import com.mt.question_answer_exerciser.db.QAPairRepository;
 import com.mt.question_answer_exerciser.dto.GameDTO;
 import com.mt.question_answer_exerciser.dto.QAPairDTO;
 import jakarta.annotation.PostConstruct;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -44,11 +45,17 @@ public class QAService {
         return modelMapper.map(gameDB, GameDTO.class);
     }
 
-    public int uploadQAs(List<QAPairDTO> dtoL, String gameId){
+    @Transactional
+    public int uploadQAs(List<QAPairDTO> dtoL, String gameId, boolean override){
 
         Game game = gameRepository.findById(UUID.fromString(gameId)).orElse(null);
         if (game == null)
             throw new IllegalArgumentException("Invalid gameid: " + gameId);
+
+        if (override) {
+            long deleted = qaPairRepository.deleteByGameId(UUID.fromString(gameId));
+            log.info("deleted num qaPairs: " + deleted);
+        }
 
         List<QAPair> dbL = dtoL.stream().map(dto -> {
             QAPair qaPair = new QAPair();

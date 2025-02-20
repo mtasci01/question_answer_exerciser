@@ -22,8 +22,9 @@ public class QAController {
     }
 
     @PostMapping(value = "/upload_qas")
-    public ResponseEntity<String> uploadQAs(@RequestBody List<QAPairDTO> dtoL, @RequestParam String gameId) {
-        int saved = qaService.uploadQAs(dtoL,gameId);
+    public ResponseEntity<String> uploadQAs(@RequestBody List<QAPairDTO> dtoL, @RequestParam String gameId,
+                                            @RequestParam(required = false) boolean override) {
+        int saved = qaService.uploadQAs(dtoL,gameId,override);
         return new ResponseEntity<>("Num Saved: " + saved, HttpStatus.OK);
     }
 
