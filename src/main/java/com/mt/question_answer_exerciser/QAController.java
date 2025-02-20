@@ -1,11 +1,12 @@
 package com.mt.question_answer_exerciser;
 
 import com.mt.question_answer_exerciser.dto.GameDTO;
+import com.mt.question_answer_exerciser.dto.QAPairDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,12 +21,12 @@ public class QAController {
 
     }
 
-    /*@GetMapping("/get_all_reports")
-    public ResponseEntity<List<ReportDTO>> getReports() {
+    @PostMapping(value = "/upload_qas")
+    public ResponseEntity<String> uploadQAs(@RequestBody List<QAPairDTO> dtoL, @RequestParam String gameId) {
+        int saved = qaService.uploadQAs(dtoL,gameId);
+        return new ResponseEntity<>("Num Saved: " + saved, HttpStatus.OK);
+    }
 
-        return ResponseEntity.ok(qaService.getReports());
-
-    }*/
 
 
 }
