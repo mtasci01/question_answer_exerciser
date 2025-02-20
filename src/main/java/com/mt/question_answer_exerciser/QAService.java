@@ -45,16 +45,33 @@ public class QAService {
         return modelMapper.map(gameDB, GameDTO.class);
     }
 
-    @Transactional
-    public int uploadQAs(List<QAPairDTO> dtoL, String gameId, boolean override){
-
+    private void gameExists(String gameId){
         Game game = gameRepository.findById(UUID.fromString(gameId)).orElse(null);
         if (game == null)
             throw new IllegalArgumentException("Invalid gameid: " + gameId);
+    }
+
+    private long deleteGameQAs(String gameId){
+        long deleted = qaPairRepository.deleteByGameId(UUID.fromString(gameId));
+        log.info("deleted num qaPairs: " + deleted);
+        return deleted;
+    }
+
+    @Transactional
+    public long deleteGame(String gameId){
+        gameExists(gameId);
+        long deleted =  deleteGameQAs(gameId);
+        gameRepository.deleteById(UUID.fromString(gameId));
+        return deleted;
+    }
+
+    @Transactional
+    public long uploadQAs(List<QAPairDTO> dtoL, String gameId, boolean override){
+
+        gameExists(gameId);
 
         if (override) {
-            long deleted = qaPairRepository.deleteByGameId(UUID.fromString(gameId));
-            log.info("deleted num qaPairs: " + deleted);
+            deleteGameQAs(gameId);
         }
 
         List<QAPair> dbL = dtoL.stream().map(dto -> {
