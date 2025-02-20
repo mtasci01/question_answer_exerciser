@@ -4,17 +4,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
-
 import java.util.UUID;
 
 @Entity
 @Data
-@Table(name = "QAPair")
-public class QAPair {
-    @Id
-    private UUID id;
-    private UUID gameId;
-    private String question;
-    private String answer;
-    private Long timestamp;
+@Table(name = "Game")
+public class Game {
+        @Id
+        private UUID id;
+        private String description;
+        private Long creationTimestamp;
 }
