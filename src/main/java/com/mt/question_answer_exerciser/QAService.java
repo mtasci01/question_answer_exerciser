@@ -65,6 +65,12 @@ public class QAService {
         return deleted;
     }
 
+    /*public QAPairDTO getRandomQA(String gameId){
+        gameExists(gameId);
+
+
+    }*/
+
     @Transactional
     public long uploadQAs(List<QAPairDTO> dtoL, String gameId, boolean override){
 
@@ -78,7 +84,7 @@ public class QAService {
             QAPair qaPair = new QAPair();
             qaPair.setAnswer(dto.getAnswer());
             qaPair.setQuestion(dto.getQuestion());
-            qaPair.setTimestamp(Instant.now().toEpochMilli());
+            qaPair.setCreateTimestamp(Instant.now().toEpochMilli());
             qaPair.setId(UUID.randomUUID());
             qaPair.setGameId(UUID.fromString(gameId));
             return qaPair;

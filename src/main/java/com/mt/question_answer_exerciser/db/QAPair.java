@@ -16,5 +16,7 @@ public class QAPair {
     private UUID gameId;
     private String question;
     private String answer;
-    private Long timestamp;
+    private Long createTimestamp;
+    private Long updateTimestamp;
+    private Boolean guessed;
 }

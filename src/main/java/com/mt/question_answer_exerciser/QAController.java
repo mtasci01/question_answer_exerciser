@@ -32,4 +32,10 @@ public class QAController {
         return new ResponseEntity<>("Num deleted: " + deleted, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/delete_game")
+    public ResponseEntity<String> getGame(@RequestParam String gameId) {
+        long deleted = qaService.deleteGame(gameId);
+        return new ResponseEntity<>("Num deleted: " + deleted, HttpStatus.OK);
+    }
+
 }

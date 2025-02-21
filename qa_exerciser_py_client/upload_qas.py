@@ -1,12 +1,14 @@
 import requests
-import json
+from common_stuff import get_game_id
 
 filepath = "E:/temp/abc.txt"
 
-game_id = "c8a371a9-9362-487b-8764-b2657dc8b2c4"
+
+
+game_id = get_game_id()
 override = "true"
 
-
+#file has alternating lines for questions and answers
 f = open(filepath, "r", encoding="utf-8")
 
 data = f.read() 
