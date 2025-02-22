@@ -65,11 +65,24 @@ public class QAService {
         return deleted;
     }
 
-    /*public QAPairDTO getRandomQA(String gameId){
+    public QAPairDTO getRandUnansQA(String gameId){
         gameExists(gameId);
+        QAPair qaPair = qaPairRepository.pickUnansweredQuestion(UUID.fromString(gameId));
+        return modelMapper.map(qaPair, QAPairDTO.class);
+    }
 
+    public void updateQAPairGuessed(String id, boolean guessed){
 
-    }*/
+        QAPair qaPair = qaPairRepository.findById(UUID.fromString(id)).orElse(null);
+
+        if (qaPair == null)
+            throw new IllegalArgumentException("Invalid qapair id: " + id);
+        qaPair.setGuessed(guessed);
+        qaPair.setUpdateTimestamp(Instant.now().toEpochMilli());
+
+        qaPairRepository.save(qaPair);
+        log.info("Updated qa pair " + id);
+    }
 
     @Transactional
     public long uploadQAs(List<QAPairDTO> dtoL, String gameId, boolean override){

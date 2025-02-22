@@ -10,6 +10,7 @@ import java.util.UUID;
 public interface QAPairRepository extends JpaRepository<QAPair, UUID> {
     long deleteByGameId(UUID gameId);
 
-    //@Query("select q from QAPair q WHERE q.gameId = ?1 AND q.order by RAND()")
-    //public QAPair findRandomQuestion(UUID gameId, );
+    @Query(value  = "select * from QAPair WHERE game_Id = 'c8a371a9-9362-487b-8764-b2657dc8b2c4' AND (guessed = false OR guessed IS NULL) order by random() limit 1;"
+            , nativeQuery = true)
+    QAPair pickUnansweredQuestion(UUID gameId);
 }

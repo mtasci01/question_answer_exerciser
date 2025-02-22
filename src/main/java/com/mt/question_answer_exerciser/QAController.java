@@ -26,6 +26,12 @@ public class QAController {
         return new ResponseEntity<>("Num Saved: " + saved, HttpStatus.OK);
     }
 
+    @PutMapping(value = "/update_qapair_guessed")
+    public ResponseEntity<String> updateQAPairGuessed(@RequestParam String id, @RequestParam boolean guessed) {
+        qaService.updateQAPairGuessed(id, guessed);
+        return new ResponseEntity<>("Saved", HttpStatus.OK);
+    }
+
     @DeleteMapping(value = "/delete_game")
     public ResponseEntity<String> uploadQAs(@RequestParam String gameId) {
         long deleted = qaService.deleteGame(gameId);
@@ -37,5 +43,13 @@ public class QAController {
         long deleted = qaService.deleteGame(gameId);
         return new ResponseEntity<>("Num deleted: " + deleted, HttpStatus.OK);
     }
+
+    @GetMapping(value = "/get_rand_unans_qa")
+    public ResponseEntity<QAPairDTO> getRandUnansQA(@RequestParam String gameId) {
+        QAPairDTO dto = qaService.getRandUnansQA(gameId);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
+    }
+
+
 
 }
