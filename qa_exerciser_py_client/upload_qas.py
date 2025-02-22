@@ -1,7 +1,7 @@
 import requests
 from common_stuff import get_game_id
 
-filepath = "E:/temp/abc.txt"
+filepath = "E:/temp/abcd.txt"
 
 
 

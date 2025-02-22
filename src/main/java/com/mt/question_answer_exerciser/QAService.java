@@ -85,6 +85,13 @@ public class QAService {
     }
 
     @Transactional
+    public void resetQAGuessed(String gameId){
+        gameExists(gameId);
+        qaPairRepository.resetQAGuessed(UUID.fromString(gameId), Instant.now().toEpochMilli());
+        log.info("RESET qa pairs game id  " + gameId);
+    }
+
+    @Transactional
     public long uploadQAs(List<QAPairDTO> dtoL, String gameId, boolean override){
 
         gameExists(gameId);

@@ -32,6 +32,12 @@ public class QAController {
         return new ResponseEntity<>("Saved", HttpStatus.OK);
     }
 
+    @PutMapping(value = "/reset_qa_guessed")
+    public ResponseEntity<String> resetQAGuessed(@RequestParam String gameId) {
+        qaService.resetQAGuessed(gameId);
+        return new ResponseEntity<>("RESET", HttpStatus.OK);
+    }
+
     @DeleteMapping(value = "/delete_game")
     public ResponseEntity<String> uploadQAs(@RequestParam String gameId) {
         long deleted = qaService.deleteGame(gameId);
