@@ -114,4 +114,9 @@ public class QAService {
         log.info("Created num qaPairs: " + dbL.size());
         return dbL.size();
     }
+
+    public int getNumLeft(String gameId){
+        gameExists(gameId);
+        return qaPairRepository.getNumLeft(UUID.fromString(gameId));
+    }
 }

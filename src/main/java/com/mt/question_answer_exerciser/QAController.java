@@ -56,6 +56,11 @@ public class QAController {
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/get_num_left")
+    public ResponseEntity<Integer> getNumLeft(@RequestParam String gameId) {
+        return new ResponseEntity<>(qaService.getNumLeft(gameId), HttpStatus.OK);
+    }
+
 
 
 }
